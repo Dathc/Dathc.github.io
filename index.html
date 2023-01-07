@@ -1,232 +1,48 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+Originally just an idea and excuse to test the gamepad API 🎮, this spiraled out of control a little into a multi-input maze. You can navigate trough the maze, depending on your browser/os, by:
+- clicking the up/down/left/rigt-buttons
+- the arrow keys on your keyboard
+- the WASD-keys on your keyboard if that is more your style
+- by scrolling up/down or left/right
+- by swiping if your device of choice has a touchscreen
+- by tilting your device (if your device does not reuqire special permissions for that (i.e. is an iPhone))
+- by typing up(), down(), left() or right() in the console
+- and finally, by using a compatible gamepad, aka the original idea 🙃
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>website development</title>
-    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic-ext" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <ul class="menu">
-                    <li class="menu_item"><a href="#" class="menu_link">Главная</a></li>
-                    <li class="menu_item"><a href="#require" class="menu_link">Заказать такой же сайт</a></li>
-                    <li class="menu_item">
-                        <a href="#require" class="menu_link"></a>
-                    </li>
-
-                    <li class="menu_item"><a href="#" class="menu_link">Контакты</a></li>
-                    <li class="menu_item"><a href="#" class="menu_link">Оставить заявку</a></li>
-                </ul>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-        <div class="subheader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 col-md-4 offset-md-1">
-
-                        <div class="subheader_official">разработчик Фильков Николай Львовоич</div>
-                    </div>
-
-                    <div class="xs-hidden col-md-3 offset-md-1 col-xl-2 offset-xl-2">
-                        <div class="subheader_call"></div>
-                        <a href="tel:888888888" class="subheader_phone">8 888 888 88 88</a>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <a href="tel:8888888888" class="xs-visible subheader_phone">8 888 888 88 88</a>
-
-                        <button class="subheader_btn">заказать звонок</button>
-                        <div id="columns">
-                            <div class="column" draggable="true">
-                                <div class="column" draggable="true">
-
-                                    <div class="column" draggable="true">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    </header>
-
-    <section class="promo">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 offset-md-0 col-lg-10 offset-lg-1">
-                    <h1 class="promo_header">just a website</h1>
-                    <h2 class="promo_subheader">от UX дизайна до готового сайта</h2>
-                    <div class="promo_descr">
-
-                        <br><br> Ваш макет, мой макет.
-                    </div>
-
-                </div>
-            </div>
-    </section>
-
-    <section class="reasons">
-        <div class="container">
-            <div class="label">преимущества</div>
-
-            <div class="reasons_subtitle">Высокое качество работы !</div>
-            <div class="reasons_text">
-                Заказчику приедоставляются все этапы разработки, контроль версии.
-            </div>
+The maze is randomly generated using the "recursive backtracking" algorithm. Found this to be the best option after starting from this SO-Answer: https://stackoverflow.com/a/23681987 and after reading this: http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking"
+-->
+    <div id="container">
+      <div class="mbox">
+        <div id="maze">
+          <div id="thingie">
+            <div class="emo" id="emo">🥺</div>
+          </div>
+          <div id="home">
+            <div class="emo">🏠</div>
+          </div>
+          <div class="barrier" id="top"></div>
+          <div class="barrier" id="bottom"></div>
         </div>
+      </div>
+      <div class="controls">
+        <div class="buttons">
+          <button class="btn" id="bu"><div class="chevron">↑</div></button>
+          <button class="btn" id="bd"><div class="chevron">↓</div></button>
+          <button class="btn" id="bl"><div class="chevron">←</div></button>
+          <button class="btn" id="br"><div class="chevron">→</div></button>
         </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="require_block">
-                <div class="require_title">
-
-                </div>
-                <ul class="require_list">
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="require_block require_block_nmb warning">
-                <div class="require_title">
-
-                </div>
-                <ul class="require_list">
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="require_block require_block_nmb warning">
-                <div class="require_title">
-
-                </div>
-                <ul class="require_list">
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        </div>
-        </div>
-    </section>
-    <!--
-    <section class="world">
-        <div class="container">
-            <div class="label label_white label_min">города</div>
-            <h2 class="title title_white">По всему миру</h2>
-            <div class="subtitle subtitle_white">и по всему миру</div>
-
-            <a href="#" class="world_link">посмотреть все города</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer_divider"></div>
-        <div class="footer_wrapper">
-            <!-- Если не оборачивать каждый блок в обертку - получится криво -->
-    <div>
-        <div class="footer_social">
-            <a href="#" class="footer_social_item">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="footer_social_item">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="footer_social_item">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#" class="footer_social_item">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </div>
+      </div>
     </div>
-    <div>
-        <div class="footer_links">
-            <div class="footer_links_main">
-                <a href="#">на главную</a>
-                <a href="#">города</a>
-                <a href="#">для заказчиков</a>
-            </div>
-            <div class="footer_links_sub">
-                <a href="#">центр поддержки</a>
-                <a href="#">мои работы</a>
-                <a href="#">разработчики</a>
-                <a href="#">блог</a>
-                <a href="#">о нас</a>
-            </div>
-            <a href="#" class="footer_links_lang">Русский</a>
-        </div>
-    </div>
-    <div>
-        <div class="footer_mobile">
-            <a href="#">
-                <img src="img/app_store.png" alt="App Store">
-            </a>
-            <a href="#">
-                <img src="img/google_play.png" alt="Google play">
-            </a>
-            <a href="#">
-                <img src="img/windows_store.png" alt="Windows store">
-            </a>
-        </div>
-    </div>
-    </div>
-    </footer>
-
-    <script src="js/script.js"></script>
-</body>
-
+    <script src="/script.js"></script>
+  </body>
 </html>
