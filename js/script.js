@@ -510,7 +510,7 @@ function handleOrientation(e) {
   if (firstMove) {
     lastUD = e.beta;
     lastLR = e.gamma;
-    firstMove = true;//false
+    firstMove = false;
   }
   if (allowTilt) {
     if (e.beta < lastUD - mThreshold) {
