@@ -21,6 +21,7 @@ let nogoY2 = [];
 let prevDist = mazeWidth * 2;
 
 //tilt vars
+// переменные наклона
 let lastUD = 0;
 let lastLR = 0;
 const mThreshold = 15;
@@ -28,19 +29,24 @@ let firstMove = true;
 let allowTilt = true;
 
 //swipe vars
+//пролистываем переменные
 const sThreshold = 15;
 
 //scroll vars
+// прокручиваем переменные
 const scThreshold = 20;
 
 //generate sides and starting position
+//генерируем стороны и начальную позицию
 genSides();
 
 //define size
+//определить размер
 let my = mazeHeight / step;
 let mx = mazeWidth / step;
 
 //create full grid
+//создаем полную сетку
 let grid = [];
 for (let i = 0; i < my; i++) {
   let sg = [];
@@ -51,6 +57,7 @@ for (let i = 0; i < my; i++) {
 }
 
 //create direction arrays
+//создаем массивы направлений
 let dirs = ["u", "d", "l", "r"];
 let modDir = {
   u: { y: -1, x: 0, o: "d" },
@@ -60,10 +67,12 @@ let modDir = {
 };
 
 //generate maze
+//генерируем лабиринт
 genMaze(0, 0, 0);
 drawMaze();
 
 //get all the barriers
+//получаем все барьеры
 const barriers = document.getElementsByClassName("barrier");
 for (let b = 0; b < barriers.length; b++) {
   nogoX.push(barriers[b].offsetLeft);
@@ -157,6 +166,7 @@ function right() {
 }
 
 //check if one can move horizontally
+//проверяем, можно ли двигаться горизонтально
 function checkXboundry(dir) {
   let x = thingie.offsetLeft;
   let y = thingie.offsetTop;
@@ -182,6 +192,7 @@ function checkXboundry(dir) {
     ok.push(check);
   }
   //check what to return
+  //проверяем, что возвращать
   let res = ok.every(function (e) {
     return e > 0;
   });
@@ -189,6 +200,7 @@ function checkXboundry(dir) {
 }
 
 //check if one can move vertically
+//проверяем, можно ли двигаться вертикально
 function checkYboundry(dir) {
   let x = thingie.offsetLeft;
   let y = thingie.offsetTop;
@@ -214,6 +226,7 @@ function checkYboundry(dir) {
     ok.push(check);
   }
   //check what to return
+  //проверяем, что возвращать
   let res = ok.every(function (e) {
     return e > 0;
   });
@@ -221,6 +234,7 @@ function checkYboundry(dir) {
 }
 
 //generate sides with random entry and exit points
+//генерировать стороны со случайными точками входа и выхода
 function genSides() {
   let max = mazeHeight / step;
   let l1 = Math.floor(Math.random() * max) * step;
@@ -249,6 +263,8 @@ function genSides() {
   rb2.style.height = l1 + "px";
 
   //create invisible barriers for start and end: vertical left, vertical right, left top, left bottom, right top, right bottom
+
+  //создаем невидимые барьеры для начала и конца: вертикально слева, вертикально справа, слева вверху, слева внизу, справа вверху, справа внизу
   nogoX.push(0, mazeWidth + 2 * step, 0, 0, mazeWidth + step, mazeWidth + step);
   nogoX2.push(
     0 + bwidth,
@@ -275,13 +291,16 @@ function genSides() {
     l2 + 2 * step + bwidth
   );
   //set start-pos
+  //установить начальную позицию
   thingie.style.top = l1 + step + "px";
   thingie.style.left = 0 + "px";
   //set end-pos & store height of end
+  // устанавливаем конечную позицию и сохраняем высоту конца
   home.style.top = l2 + step + "px";
   home.style.left = mazeWidth + step + "px";
 
   //style & append
+  // стиль и добавление
   let els = [lb1, lb2, rb1, rb2];
   for (let i = 0; i < els.length; i++) {
     confSideEl(els[i]);
@@ -295,8 +314,10 @@ function confSideEl(el) {
 }
 
 //gen maze using Recursive Backtracking
+//Ген лабиринт с использованием рекурсивного поиска с возвратом
 function genMaze(cx, cy, s) {
   // shuffle unchecked directions
+  //перетасовать непроверенные направления
   let d = limShuffle(dirs, s);
 
   for (let i = 0; i < d.length; i++) {
@@ -308,12 +329,14 @@ function genMaze(cx, cy, s) {
       grid[cy][cx][d[i]] = 1;
       grid[ny][nx][modDir[d[i]].o] = 1;
       //avoid shuffling d if d's not exhausted.. hence the i
+      //избегайте перетасовки d, если d не исчерпан.. следовательно, i
       genMaze(nx, ny, i);
     }
   }
 }
 
 //draw maze
+//нарисовать лабиринт
 function drawMaze() {
   for (let x = 0; x < mx; x++) {
     for (let y = 0; y < my; y++) {
@@ -328,6 +351,7 @@ function drawMaze() {
 }
 
 //draw the actual lines
+//нарисуйте настоящие линии
 function drawLines(x, y, l, r, u, d) {
   let top = (y + 1) * step;
   let left = (x + 1) * step;
@@ -402,11 +426,12 @@ function animKeys(key) {
     key.style.transform = "translateX(0px)";
   }, "150");
 }
-
+//Блок управления смайликом
 let maxl = 0;
 let prevl = 0;
 function updateEmo(lr) {
   //simple/manual emo-adjustment - old
+  //простая/ручная эмо-регулировка - старая
   if (lr) {
     if (thingie.offsetLeft < maxl) {
       emo.innerHTML = "🙄";
@@ -463,6 +488,7 @@ function updateEmo(lr) {
   }
 
   // 	//Variant: Detect distance to target using old Greeks: Phytagoras (More scientifically interesting, but somehow less funny 🙃)
+  //  Вариант: Определить расстояние до цели с помощью древних греков: Фитагора (Более научно интересно, но как-то менее смешно)
   // 	let h = home.offsetLeft - thingie.offsetLeft;
   // 	let v = Math.abs(home.offsetTop - thingie.offsetTop);
   // 	let dist = Math.hypot(h, v);
@@ -494,6 +520,7 @@ function updateEmo(lr) {
 }
 
 //navigate with tilting
+//ориентироваться с наклоном
 window.addEventListener("deviceorientation", handleOrientation);
 
 function tiltTimer() {
@@ -533,6 +560,7 @@ function handleOrientation(e) {
 }
 
 //navigate with controller
+//навигация с помощью контроллера
 let haveEvents = "ongamepadconnected" in window;
 let gp = [];
 let allowU = true;
@@ -716,6 +744,7 @@ function gpATimer(adir) {
 }
 
 //Navigate with swipe
+//Навигация свайпом
 let lasttouchpY = 0;
 let lasttouchpX = 0;
 cont.addEventListener("touchstart", (e) => {
@@ -749,12 +778,14 @@ cont.addEventListener("touchmove", (e) => {
 });
 
 //Navigate with scrolling
+//Навигация с прокруткой
 let lastscrollpY = 0;
 let lastscrollpX = 0;
 cont.addEventListener("wheel", (e) => {
   //console.log("scrollY: " + e.deltaY + " scrollX: " + e.deltaX);
 
   //handle Y scrolling
+  //обработка прокрутки Y
   lastscrollpY = lastscrollpY + e.deltaY;
   if (lastscrollpY > 0 && e.deltaY < 0) {
     lastscrollpY = 0;
@@ -773,6 +804,7 @@ cont.addEventListener("wheel", (e) => {
   }
 
   //handle X scrolling
+  //обработка X прокрутки
   lastscrollpX = lastscrollpX + e.deltaX;
   if (lastscrollpX > 0 && e.deltaX < 0) {
     lastscrollpX = 0;
