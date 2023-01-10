@@ -388,7 +388,7 @@ function limShuffle(array, s) {
   let comb = con.concat(ran);
   return comb;
 }
-
+//Анимация кнопок
 function animKeys(key) {
   if (key.id === "bu") {
     key.style.border = "3px #fff solid";
